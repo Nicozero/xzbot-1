@@ -36,7 +36,7 @@ class RadioView(discord.ui.View):
             i = x.index(args)
             if not interaction.user.voice:
                 await interaction.response.send_message("Connect to a Voice Channel to start the radio",ephemeral=True)
-            if ctx.voice_client is None:
+            if self.ctx.voice_client is None:
                 channel = interaction.user.voice.channel
                 player = await channel.connect()
             if player.is_playing():
