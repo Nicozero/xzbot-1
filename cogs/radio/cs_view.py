@@ -16,8 +16,8 @@ class csView(View):
         self, button: discord.ui.Button, interaction: discord.Interaction
     ):
         args = button.custom_id
-        i = ADR[0]['sub'].index(args)
-        if args in ADR[0]['sub'] and args != "csjazz" and args != "csjxmas":
+        i = ADR[0]['cssub'].index(args)
+        if args in ADR[0]['cssub'] and args != "csjazz" and args != "csjxmas":
             getjson = requests.get(ADR[0]['cslink'][i], verify=False)
             text = getjson.text
             xcs = json.loads(text)
