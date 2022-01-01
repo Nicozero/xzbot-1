@@ -10,13 +10,13 @@ class RadioView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)      
     async def handle_click(
-        self,button: discord.ui.Button, interaction: discord.Interaction
+        self,bot: commands.Bot, button: discord.ui.Button, interaction: discord.Interaction
     ):
         args = button.custom_id
         global player
         global channel
         x = ADR[0]['sub']
-        voice = discord.utils.get(discord.ext.commands.command.Bot.voice_clients, guild=interaction.guild)
+        voice = discord.utils.get(bot.voice_clients, guild=interaction.guild)
         if args == 'leave':
             if interaction.guild.voice_client is None:
                 await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
