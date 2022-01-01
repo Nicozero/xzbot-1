@@ -17,7 +17,7 @@ class csView(View):
     ):
         args = button.custom_id
         i = ADR[0]['sub'].index(args)
-        if args in ADR[0]['sub'] and args != "jazz" and args != "jxmas":
+        if args in ADR[0]['sub'] and args != "csjazz" and args != "csjxmas":
             getjson = requests.get(ADR[0]['cslink'][i], verify=False)
             text = getjson.text
             xcs = json.loads(text)
@@ -31,7 +31,7 @@ class csView(View):
             embed.add_field(name=artist, value="["+songtitle+"]"+"("+"https://www.google.com/search?q="+urllib.parse.quote_plus(artist+" "+songtitle)+")", inline=True)
             embed.set_footer(text=str(timestamp)[2:7])
             await interaction.response.edit_message(embed=embed)     
-        elif args == "jazz":
+        elif args == "csjazz":
             getjson = requests.get(ADR[0]['cslink'][i], verify=False)
             text = getjson.text
             xcs = json.loads(text)
@@ -45,7 +45,7 @@ class csView(View):
             embed.add_field(name=artist, value="["+songtitle+"]"+"("+"https://www.google.com/search?q="+urllib.parse.quote_plus(artist+" "+songtitle)+")", inline=True)
             embed.set_footer(text=str(timestamp)[2:7])
             await interaction.response.edit_message(embed=embed)  
-        elif args == "jxmas":
+        elif args == "csjxmas":
             embed = discord.Embed(title="-_-", color=0x00ffee)
             await interaction.response.edit_message(embed=embed)  
 
@@ -54,7 +54,7 @@ class csView(View):
     @discord.ui.button(
         emoji='<:JapanHits:925911131405553717>',
         style=discord.ButtonStyle.primary , 
-        custom_id='jhits',
+        custom_id='csjhits',
         row=0
         )
     async def jhits_button(self, button, interaction):
@@ -63,7 +63,7 @@ class csView(View):
     @discord.ui.button(
         emoji='<:JPopPowerplay:925911524969680987>', 
         style=discord.ButtonStyle.primary , 
-        custom_id='jpop',
+        custom_id='csjpop',
         row=0
         )     
     async def jpop_button(self, button, interaction):
@@ -72,7 +72,7 @@ class csView(View):
     @discord.ui.button(
         emoji='<:JPopPowerplayKawaii:925911698051850300>', 
         style=discord.ButtonStyle.primary , 
-        custom_id='jkawaii',
+        custom_id='csjkawaii',
         row=0
         )
     async def jkawaii_button(self, button, interaction):
@@ -81,7 +81,7 @@ class csView(View):
     @discord.ui.button(
         emoji='<:JPopSakura:925911772769189959>', 
         style=discord.ButtonStyle.primary , 
-        custom_id='jsakura',
+        custom_id='csjsakura',
         row=1
         )
     async def jsakura_button(self, button, interaction):
@@ -90,7 +90,7 @@ class csView(View):
     @discord.ui.button(
         emoji='<:JRockPowerPlay:925911862544040036>', 
         style=discord.ButtonStyle.primary , 
-        custom_id='jrock',
+        custom_id='csjrock',
         row=1
         )
     async def jrock_button(self, button, interaction):
@@ -99,7 +99,7 @@ class csView(View):
     @discord.ui.button(
         emoji='<:JClubPowerplayHipHop:925911962611744778>', 
         style=discord.ButtonStyle.primary , 
-        custom_id='jclub',
+        custom_id='csjclub',
         row=1
         )
     async def jclub_button(self, button, interaction):
@@ -114,7 +114,7 @@ class csView(View):
     @discord.ui.button(
         emoji='<:JazzClubBandstand:925912245362376775>', 
         style=discord.ButtonStyle.primary , 
-        custom_id='jazz',
+        custom_id='csjazz',
         row=2
         )
     async def jazz_button(self, button, interaction):
@@ -123,7 +123,7 @@ class csView(View):
     @discord.ui.button(
         emoji='<:JPopChristmasRadio:925912419698634843>', 
         style=discord.ButtonStyle.primary , 
-        custom_id='jxmas',
+        custom_id='csjxmas',
         row=2
         )
     async def jxmas_button(self, button, interaction):
