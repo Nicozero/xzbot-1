@@ -6,13 +6,13 @@ from .cs_view import csView
 class RadioCog(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
-        self.bot = bot
+        self = bot
 
     @commands.Cog.listener()
     async def on_ready(self):
         """When the bot is ready, load the view"""
-        self.bot.add_view(RadioView())
-        self.bot.add_view(csView())
+        self.add_view(RadioView())
+        self.add_view(csView())
         print("Button view added")
 
     @commands.command(aliases=["p","radio"])
