@@ -15,14 +15,14 @@ class RadioView(discord.ui.View):
     ):
         args = button.custom_id
         global player
-        global channel
+        uservc = interaction.user.voice
         voicex = discord.utils.get(xtest.voice_clients, guild=interaction.guild)
         x = ADR[0]['sub']
         if args == 'leave':
             if interaction.guild.voice_client is None:
                 await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
                 return
-            if interaction.user.voice.channel != channel:
+            if uservc.channel != channel and uservc == None:
                 await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
                 return
             else:
@@ -33,7 +33,7 @@ class RadioView(discord.ui.View):
                 await interaction.guild.voice_client.disconnect(force=True)   
         elif args in x:            
             i = x.index(args)
-            if not interaction.user.voice:
+            if not uservc:
                 await interaction.response.send_message("Connect to a Voice Channel to start the radio",ephemeral=True)
             if voicex is None:
                 channel = interaction.user.voice.channel
