@@ -6,7 +6,7 @@ from .cs_view import csView
 intents = discord.Intents.default()
 intents.guilds = True
 intents.members = True
-client = commands.Bot(command_prefix=config.PREFIX, intents=intents)
+client = commands.Bot(command_prefix="xx", intents=intents)
 
 class RadioCog(commands.Cog, name="Radio"):
 
