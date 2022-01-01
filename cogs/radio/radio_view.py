@@ -10,7 +10,7 @@ class RadioView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)      
     async def handle_click(
-        self,bot: commands.Bot, button: discord.ui.Button, interaction: discord.Interaction
+        self, button: discord.ui.Button, interaction: discord.Interaction ,bot: commands.Bot
     ):
         args = button.custom_id
         global player
