@@ -1,14 +1,12 @@
 import json
-from discord.ui import Button, View
 import discord
 from discord import FFmpegPCMAudio
 from discord.ext import commands
-import main
 
 x = open('cogs/radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
 
-class RadioView(View):
+class RadioView(discord.ui.View):
     def __init__(self, client):
         super().__init__(timeout=None)
     async def handle_click(
