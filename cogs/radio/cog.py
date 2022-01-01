@@ -3,7 +3,7 @@ from discord.ext import commands
 from .radio_view import RadioView
 from .cs_view import csView
 
-class RadioCog(commands.Cog, name="Radio"):
+class RadioCog(commands.cog, name="Radio"):
 
     def __init__(self, bot: commands.Bot):
         self.__bot = bot
