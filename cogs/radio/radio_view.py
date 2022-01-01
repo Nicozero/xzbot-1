@@ -4,7 +4,7 @@ import discord
 from discord import FFmpegPCMAudio
 from discord.ext import commands
 
-client = commands.Bot(command_prefix=config.PREFIX, intents=intents)
+client = commands.Bot(command_prefix="xx", intents=intents)
 
 x = open('cogs/Radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
