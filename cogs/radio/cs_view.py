@@ -107,7 +107,10 @@ class csView(View):
 
     @discord.ui.button(
         emoji='<:JazzSakura:925912050310475817>', 
-        style=discord.ButtonStyle.primary , custom_id='jazzs',row=2)
+        style=discord.ButtonStyle.primary , 
+        custom_id='csjazzs',
+        row=2
+    )
     async def jazzs_button(self, button, interaction):
         await self.handle_click(button, interaction)     
         
