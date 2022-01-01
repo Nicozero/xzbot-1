@@ -6,7 +6,7 @@ from discord.ext import commands
 
 client = commands.Bot(command_prefix="xx")
 
-x = open('cogs/Radio/radio.json', encoding="utf-8")
+x = open('cogs/radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
 
 class RadioView(View):
