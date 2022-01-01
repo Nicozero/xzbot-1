@@ -11,6 +11,7 @@ class RadioView(discord.ui.View):
     def __init__(self,ctx):
         super().__init__(timeout=None) 
         self.ctx = ctx
+        voice = discord.utils.get(self.ctx.voice_clients, guild=self.ctx.guild)
     async def handle_click(
         self, button: discord.ui.Button, interaction: discord.Interaction 
     ):
@@ -18,7 +19,6 @@ class RadioView(discord.ui.View):
         global player
         global channel
         x = ADR[0]['sub']
-        voice = discord.utils.get(self.xbot.voice_clients, guild=interaction.guild)
         if args == 'leave':
             if interaction.guild.voice_client is None:
                 await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
@@ -36,7 +36,7 @@ class RadioView(discord.ui.View):
             i = x.index(args)
             if not interaction.user.voice:
                 await interaction.response.send_message("Connect to a Voice Channel to start the radio",ephemeral=True)
-            if self.ctx.voice_client is None:
+            if voice is None:
                 channel = interaction.user.voice.channel
                 player = await channel.connect()
             if player.is_playing():
