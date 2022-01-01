@@ -19,7 +19,7 @@ class RadioView(discord.ui.View):
         args = button.custom_id
         global player
         global channel
-        vc("test")
+        vc(ctx)
         x = ADR[0]['sub']
         if args == 'leave':
             if interaction.guild.voice_client is None:
