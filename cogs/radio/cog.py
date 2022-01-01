@@ -1,6 +1,7 @@
 from discord.ext import commands
 from .radio_view import RadioView
 from .cs_view import csView
+import discord
 
 class RadioCog(commands.Cog):
 
