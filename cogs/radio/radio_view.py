@@ -1,11 +1,10 @@
 import json
-from discord import client
 from discord.ui import Button, View
 import discord
 from discord import FFmpegPCMAudio
-from discord.ext.commands import Bot
+from discord.ext import commands
 
-client = Bot()
+client = commands.Bot(command_prefix=config.PREFIX, intents=intents)
 
 x = open('cogs/Radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
