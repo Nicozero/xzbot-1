@@ -19,7 +19,7 @@ class RadioView(discord.ui.View):
         global player
         global channel
         x = ADR[0]['sub']
-        voice = discord.utils.get(interaction.guild.voice_clients, guild=interaction.guild)
+        voice = discord.utils.get(self.xbot.voice_clients, guild=interaction.guild)
         if args == 'leave':
             if interaction.guild.voice_client is None:
                 await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
