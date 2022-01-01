@@ -3,6 +3,11 @@ from discord.ext import commands
 from .radio_view import RadioView
 from .cs_view import csView
 
+intents = discord.Intents.default()
+intents.guilds = True
+intents.members = True
+client = commands.Bot(command_prefix=config.PREFIX, intents=intents)
+
 class RadioCog(commands.Cog, name="Radio"):
 
     def __init__(self, bot: commands.Bot):
