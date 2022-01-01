@@ -1,48 +1,56 @@
 import json
-x = open('main/xlist.json', encoding="utf-8")
+from discord import client
+from discord.ui import Button, View
+import discord
+from discord import FFmpegPCMAudio
+from discord.ext.commands import Bot
+
+client = Bot()
+
+x = open('cogs/Radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
-class play( View):
-    def __init__( self,):
+
+class RadioView(View):
+    def __init__(self):
         super().__init__(timeout=None)
     async def handle_click(
         self,button: discord.ui.Button, interaction: discord.Interaction
     ):
         args = button.custom_id
+        global player
+        global channel
+        x = ADR[0]['sub']
+        voice = discord.utils.get(client.voice_clients, guild=interaction.guild)
         if args == 'leave':
             if interaction.guild.voice_client is None:
-                await interaction.response.send_message(
-                    "<:MochaSweat:648458974424858644>",ephemeral=True
-                    )
+                await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
+                return
+            if interaction.user.voice.channel != channel:
+                await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
                 return
             else:
                 player.stop()
-                embed = discord.Embed(
-                    title="Radio disconnected", color=0x00ffee
-                    )
-                embed.set_author(
-                    name=interaction.message.author.name,  icon_url=interaction.message.author.avatar
-                    )
+                embed = discord.Embed(title="Radio disconnected", color=0x00ffee)
+                embed.set_author(name=interaction.message.author.name,  icon_url=interaction.message.author.avatar)
                 await interaction.response.edit_message(embed=embed)   
-                await interaction.guild.voice_client.disconnect(force=True)        
-        elif args in ADR[0]['sub']:
-            i = ADR[0]['sub'].index(args)
-            if interaction.guild.voice_client is None:
-                await interaction.response.send_message(
-                    "<:MochaSweat:648458974424858644>",ephemeral=True
-                    )
-            else:
-                if player.is_playing():
-                    player.stop()
-                player.play(
-                    FFmpegPCMAudio(
-                        ADR[0]["rlink"][i]
-                        )
-                    )
-                embed = discord.Embed(
-                    title="Radio Playing", color=0x00ffee
-                    )
-                embed.set_author(name=str(ADR[0]['s'][i]) , url=ADR[0]['slink'][i] ,  icon_url=ADR[0]['logo'][i])
-                await interaction.response.edit_message(embed=embed)   
+                await interaction.guild.voice_client.disconnect(force=True)   
+        elif args in x:  
+            i = x.index(args)
+            if not interaction.user.voice:
+                await interaction.response.send_message("Connect to a Voice Channel to start the radio",ephemeral=True)
+            if voice is None:
+                channel = interaction.user.voice.channel
+                player = await channel.connect()
+            if player.is_playing():
+                player.stop()
+            player.play(
+                FFmpegPCMAudio(
+                    ADR[0]["rlink"][i]
+                )
+            )
+            embed = discord.Embed(title="Radio Playing", color=0x00ffee)
+            embed.set_author(name=str(ADR[0]['s'][i]) , url=ADR[0]['slink'][i] ,  icon_url=ADR[0]['logo'][i])
+            await interaction.response.edit_message(embed=embed)   
 
     @discord.ui.button(
         emoji='<:JapanHits:925911131405553717>',
