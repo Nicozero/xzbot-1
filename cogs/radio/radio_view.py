@@ -7,7 +7,7 @@ from discord.ext.commands import Bot
 x = open('cogs/radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
 
-def test(ctx):
+def vc(ctx):
     global voicex
     voicex = discord.utils.get(discord.Client.voice_clients, guild=ctx.guild)
 class RadioView(discord.ui.View):
@@ -19,6 +19,7 @@ class RadioView(discord.ui.View):
         args = button.custom_id
         global player
         global channel
+        vc()
         x = ADR[0]['sub']
         if args == 'leave':
             if interaction.guild.voice_client is None:
