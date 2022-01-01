@@ -5,7 +5,7 @@ from discord import FFmpegPCMAudio
 import datetime
 urllib3.disable_warnings()
 
-x = open('cogs/Radio/radio.json', encoding="utf-8")
+x = open('cogs/radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
 
 
