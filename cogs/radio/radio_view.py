@@ -9,7 +9,7 @@ ADR = json.load(x)
 class RadioView(discord.ui.View):
     def __init__(self,  bot: commands.Bot):
         super().__init__(timeout=None)       
-        self = bot
+        bot = bot
     async def handle_click(
         self,button: discord.ui.Button, interaction: discord.Interaction
     ):
