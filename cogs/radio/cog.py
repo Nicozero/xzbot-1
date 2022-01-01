@@ -11,7 +11,7 @@ class RadioCog(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         """When the bot is ready, load the view"""
-        self.__bot.add_view(RadioView(self.__bot))
+        self.__bot.add_view(RadioView())
         self.__bot.add_view(csView())
         print("Button view added")
 
