@@ -7,6 +7,9 @@ from discord.ext.commands import Bot
 x = open('cogs/radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
 
+def test(ctx):
+    global voicex
+    voicex = discord.utils.get(discord.Client.voice_clients, guild=ctx.guild)
 class RadioView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None) 
@@ -31,11 +34,10 @@ class RadioView(discord.ui.View):
                 await interaction.response.edit_message(embed=embed)   
                 await interaction.guild.voice_client.disconnect(force=True)   
         elif args in x:            
-            voice = discord.utils.get(discord.Client.voice_clients, guild=interaction.guild)
             i = x.index(args)
             if not interaction.user.voice:
                 await interaction.response.send_message("Connect to a Voice Channel to start the radio",ephemeral=True)
-            if voice is None:
+            if voicex is None:
                 channel = interaction.user.voice.channel
                 player = await channel.connect()
             if player.is_playing():
