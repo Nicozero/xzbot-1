@@ -1,4 +1,2 @@
-    PyNaCl==1.4.0
-requests
-isodate
+PyNaCl==1.4.0
 git+https://github.com/Rapptz/discord.py
