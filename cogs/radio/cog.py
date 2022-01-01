@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 from .radio_view import RadioView
 from .cs_view import csView
@@ -6,13 +5,13 @@ from .cs_view import csView
 class RadioCog(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
-        bot = bot
+        self.__bot = bot
 
     @commands.Cog.listener()
     async def on_ready(self):
         """When the bot is ready, load the view"""
-        bot.add_view(RadioView())
-        bot.add_view(csView())
+        self.__bot.add_view(RadioView())
+        self.__bot.add_view(csView())
         print("Button view added")
 
     @commands.command(aliases=["p","radio"])
