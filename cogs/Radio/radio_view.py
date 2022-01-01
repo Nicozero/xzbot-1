@@ -11,8 +11,9 @@ x = open('cogs/Radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
 
 class RadioView(View):
-    def __init__(self):
+    def __init__(self,bot: commands.Bot):
         super().__init__(timeout=None)
+        self.xbot = bot
     async def handle_click(
         self,button: discord.ui.Button, interaction: discord.Interaction
     ):
@@ -20,7 +21,7 @@ class RadioView(View):
         global player
         global channel
         x = ADR[0]['sub']
-        voice = discord.utils.get(client.voice_clients, guild=interaction.guild)
+        voice = discord.utils.get(self.xbot.voice_clients, guild=interaction.guild)
         if args == 'leave':
             if interaction.guild.voice_client is None:
                 await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
