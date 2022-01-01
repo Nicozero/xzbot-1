@@ -1,12 +1,8 @@
-from discord import client
 from discord.ui import Button, View
 import discord
 import requests , json , isodate , urllib.parse, urllib3
 from discord import FFmpegPCMAudio
-from discord.ext.commands import Bot
 import datetime
-
-client = Bot()
 urllib3.disable_warnings()
 
 x = open('cogs/Radio/radio.json', encoding="utf-8")
