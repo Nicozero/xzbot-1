@@ -1,0 +1,70 @@
+[
+    {
+      "sub": [
+        "jhits",
+        "jpop",
+        "jkawaii",
+        "jsakura",
+        "jrock",
+        "jclub",
+        "jazzs",
+        "jazz",
+        "jxmas"
+      ],
+      "s": [
+        "Japan Hits",
+        "J-Pop Powerplay",
+        "J-Pop Powerplay Kawaii",
+        "J-Pop Sakura 懐かしい",
+        "J-Rock PowerPlay",
+        "J-Club Powerplay HipHop",
+        "Jazz Sakura",
+        "Jazz Club Bandstand",
+        "J-Pop Christmas Radio"
+      ],
+      "rlink": [
+        "http://igor.torontocast.com:1025",
+        "http://kathy.torontocast.com:3560",
+        "http://kathy.torontocast.com:3060",
+        "http://igor.torontocast.com:1710",
+        "http://kathy.torontocast.com:3340",
+        "http://daniel.torontocast.com:2630",
+        "http://kathy.torontocast.com:3330",
+        "http://daniel.torontocast.com:2630",
+        "http://ruby.torontocast.com:1120"
+      ],
+      "cslink": [
+        "https://listen.samcloud.com/webapi/station/78063/history/npe?token=cf8d100d2f5e841ecdb8428e14bab72b1b281bfe&format=json",
+        "https://listen.samcloud.com/webapi/station/101976/history/npe?token=6075532892f2f66b3a45468a26d8b61403c0152a&format=json",
+        "https://listen.samcloud.com/webapi/station/77836/history/npe?token=17ea9158ac026e12bff74db9bddbf8a6de2c23cd&format=json",
+        "https://listen.samcloud.com/webapi/station/77726/history/npe?token=cb8691400659ddb378bb39eb53bd8a7ae653161b&format=json",
+        "https://listen.samcloud.com/webapi/station/78062/history/npe?token=e01dfb25370ccec1df2bd96c15d47ff89b6bb62f&format=json",
+        "https://listen.samcloud.com/webapi/station/77996/history/npe?token=889c64fbb7226ba0e03334e7490badae370d6402&format=json",
+        "https://listen.samcloud.com/webapi/station/110597/history/npe?token=f590fe31de54fd277ea0ebb51c14a230a8fa77f5&format=json",
+        "https://daniel.torontocast.com:2620/api/v2/history/?format=json&limit=1&offset=0&server=1",
+        "https://ruby.torontocast.com:1110/api/v2/history/?format=json&limit=1&offset=0&server=1"
+      ],
+      "logo": [
+        "https://asiadreamradio.torontocast.stream/stations/images/japanhitsplayer/japanhits.png",
+        "https://asiadreamradio.torontocast.stream/stations/images/japanhitsplayer/powerplayjpop16300.png",
+        "https://asiadreamradio.torontocast.stream/stations/images/japanhitsplayer/ppkawaii300.png",
+        "https://asiadreamradio.torontocast.stream/stations/images/japanhitsplayer/natsukashii500.png",
+        "https://asiadreamradio.torontocast.stream/stations/images/japanhitsplayer/jrockpowerplay300.png",
+        "https://asiadreamradio.torontocast.stream/stations/images/japanhitsplayer/jclubhiphop300.png",
+        "https://asiadreamradio.torontocast.stream/stations/images/jazzsakuraplayer/JazzSakuraLogo512jp.png",
+        "https://asiadreamradio.torontocast.stream/stations/images/christmasplayer/Bandstand.png",
+        "https://asiadreamradio.torontocast.stream/stations/images/christmasplayer/jch50.png"
+      ],
+      "slink": [
+        "https://asiadreamradio.torontocast.stream/stations/japanhitsplayer.html",
+        "https://asiadreamradio.torontocast.stream/stations/jpowerplayer.html",
+        "https://asiadreamradio.torontocast.stream/stations/jkawaiiplayer.html",
+        "https://asiadreamradio.torontocast.stream/stations/natsukashiiplayer.html",
+        "https://asiadreamradio.torontocast.stream/stations/jrockplayer.html",
+        "https://asiadreamradio.torontocast.stream/stations/jclubplayer.html",
+        "https://asiadreamradio.torontocast.stream/stations/jazzsakuraplayer.html",
+        "https://asiadreamradio.torontocast.stream/stations/jazzbandplayer.html",
+        "https://asiadreamradio.torontocast.stream/stations/christmasplayer.html"
+      ]
+    }
+  ]
