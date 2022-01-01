@@ -31,7 +31,7 @@ class RadioView(discord.ui.View):
                 await interaction.response.edit_message(embed=embed)   
                 await interaction.guild.voice_client.disconnect(force=True)   
         elif args in x:            
-            voice = discord.utils.get(self.__bot.voice_clients, guild=interaction.guild)
+            voice = discord.utils.get(discord.Client.voice_clients, guild=interaction.guild)
             i = x.index(args)
             if not interaction.user.voice:
                 await interaction.response.send_message("Connect to a Voice Channel to start the radio",ephemeral=True)
