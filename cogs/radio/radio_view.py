@@ -8,13 +8,12 @@ x = open('cogs/radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
 
 class RadioView(discord.ui.View):
-    def __init__(self,bot: commands.Bot):
-        super().__init__(timeout=None)      
+    def __init__(self,ctx):
+        super().__init__(timeout=None) 
+        self.ctx = ctx
     async def handle_click(
         self, button: discord.ui.Button, interaction: discord.Interaction 
     ):
-        
-        self.xbot = bot
         args = button.custom_id
         global player
         global channel
@@ -37,7 +36,7 @@ class RadioView(discord.ui.View):
             i = x.index(args)
             if not interaction.user.voice:
                 await interaction.response.send_message("Connect to a Voice Channel to start the radio",ephemeral=True)
-            if voice is None:
+            if ctx.voice_client is None:
                 channel = interaction.user.voice.channel
                 player = await channel.connect()
             if player.is_playing():
