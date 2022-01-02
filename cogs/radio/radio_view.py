@@ -6,7 +6,7 @@ from discord.ext.commands import Bot
 
 x = open('cogs/radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
-bot = Bot('')
+xtest = Bot('')
 class RadioView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None) 
@@ -14,15 +14,16 @@ class RadioView(discord.ui.View):
         self, button: discord.ui.Button, interaction: discord.Interaction 
     ):
         args = button.custom_id
+        global player
         uservc = interaction.user.voice
-        voice = discord.utils.get(bot.voice_clients, guild=interaction.guild)
+        voicex = discord.utils.get(xtest.voice_clients, guild=interaction.guild)
         x = ADR[0]['sub']
         if args in x:            
             i = x.index(args)
             if not uservc:
                 await interaction.response.send_message("Connect to a Voice Channel to start the radio",ephemeral=True)
-            if voice is None:
-                channel = uservc.channel
+            if voicex is None:
+                channel = interaction.user.voice.channel
                 player = await channel.connect()
             if player.is_playing():
                 player.stop()
@@ -35,11 +36,11 @@ class RadioView(discord.ui.View):
             embed.set_author(name=str(ADR[0]['s'][i]) , url=ADR[0]['slink'][i] ,  icon_url=ADR[0]['logo'][i])
             await interaction.response.edit_message(embed=embed)   
         if args == 'leave':
-            if voice is None:
-                await interaction.response.send_message("bot not in voice <:MochaSweat:648458974424858644>",ephemeral=True)
+            if interaction.guild.voice_client is None:
+                await interaction.response.send_message("Test 1",ephemeral=True)
                 return
-            elif uservc.channel != voice.channel and uservc.channel == None:
-                await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
+            if uservc.channel != channel and uservc == None:
+                await interaction.response.send_message("test 2",ephemeral=True)
                 return
             else:
                 player.stop()
