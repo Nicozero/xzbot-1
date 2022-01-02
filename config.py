@@ -1,3 +1,3 @@
 import os
 PREFIX = "ss"
-BOT_TOKEN = "OTI1Nzk3ODc5MTc0NTU3NzY2.YcyWdg.oG-CWs69WRSOgRJ55GWS1PeK7NU"
+BOT_TOKEN = os.getenv("TOKEN")
