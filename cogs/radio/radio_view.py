@@ -1,46 +1,50 @@
 import json
 import discord
+import asyncio
 from discord import FFmpegPCMAudio
 from discord.ext import commands
 from discord.ext.commands import Bot
 
 x = open('cogs/radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
-xtest = Bot('')
+bot = Bot('')
 class RadioView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None) 
     async def handle_click(
         self, button: discord.ui.Button, interaction: discord.Interaction 
     ):
-        args = button.custom_id
         global player
+        args = button.custom_id
         uservc = interaction.user.voice
-        voicex = discord.utils.get(xtest.voice_clients, guild=interaction.guild)
+        botvc = interaction.message.author.voice
         x = ADR[0]['sub']
-        if args in x:            
-            i = x.index(args)
-            if not uservc:
-                await interaction.response.send_message("Connect to a Voice Channel to start the radio",ephemeral=True)
-            if voicex is None:
-                channel = interaction.user.voice.channel
-                player = await channel.connect()
-            if player.is_playing():
-                player.stop()
-            player.play(
-                FFmpegPCMAudio(
-                    ADR[0]["rlink"][i]
-                )
-            )
-            embed = discord.Embed(title="Radio Playing", color=0x00ffee)
-            embed.set_author(name=str(ADR[0]['s'][i]) , url=ADR[0]['slink'][i] ,  icon_url=ADR[0]['logo'][i])
-            await interaction.response.edit_message(embed=embed)   
+        
+        if not uservc:
+            await interaction.response.send_message("Connect to a Voice Channel to start the radio",ephemeral=True)
+        if botvc  is None:
+            channel = uservc.channel
+            player = await channel.connect()
+            botvc = interaction.message.author.voice
+        if uservc is not None and botvc.channel is not None:
+            if args in x:            
+                i = x.index(args)
+                if uservc.channel == botvc.channel:
+                    if player.is_playing():
+                        player.stop()
+                    player.play(
+                        FFmpegPCMAudio(
+                            ADR[0]["rlink"][i]
+                        )
+                    )
+                    embed = discord.Embed(title="Radio Playing", color=0x00ffee)
+                    embed.set_author(name=str(ADR[0]['s'][i]) , url=ADR[0]['slink'][i] ,  icon_url=ADR[0]['logo'][i])
+                    await interaction.response.edit_message(embed=embed)
+                else:
+                    await interaction.response.send_message("Test 1",ephemeral=True)
         if args == 'leave':
             if interaction.guild.voice_client is None:
                 await interaction.response.send_message("Test 1",ephemeral=True)
-                return
-            if uservc.channel != channel and uservc == None:
-                await interaction.response.send_message("test 2",ephemeral=True)
                 return
             else:
                 player.stop()
@@ -48,6 +52,7 @@ class RadioView(discord.ui.View):
                 embed.set_author(name=interaction.message.author.name,  icon_url=interaction.message.author.avatar)
                 await interaction.response.edit_message(embed=embed)   
                 await interaction.guild.voice_client.disconnect(force=True)   
+                print(uservc.channel,botvc.channel)
       
     @discord.ui.button(
         emoji='<:JapanHits:925911131405553717>',
