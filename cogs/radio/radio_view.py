@@ -46,13 +46,13 @@ class RadioView(discord.ui.View):
             if interaction.guild.voice_client is None:
                 await interaction.response.send_message("Test 1",ephemeral=True)
                 return
-            else:
-                player.stop()
-                embed = discord.Embed(title="Radio disconnected", color=0x00ffee)
-                embed.set_author(name=interaction.message.author.name,  icon_url=interaction.message.author.avatar)
-                await interaction.response.edit_message(embed=embed)   
-                await interaction.guild.voice_client.disconnect(force=True)   
-                print(uservc.channel,botvc.channel)
+            if uservc is not None and botvc.channel is not None:
+                if uservc.channel == botvc.channel:
+                    player.stop()
+                    embed = discord.Embed(title="Radio disconnected", color=0x00ffee)
+                    embed.set_author(name=interaction.message.author.name,  icon_url=interaction.message.author.avatar)
+                    await interaction.response.edit_message(embed=embed)   
+                    await interaction.guild.voice_client.disconnect(force=True)   
       
     @discord.ui.button(
         emoji='<:JapanHits:925911131405553717>',
