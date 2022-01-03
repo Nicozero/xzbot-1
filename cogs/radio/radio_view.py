@@ -41,7 +41,7 @@ class RadioView(discord.ui.View):
                     embed.set_author(name=str(ADR[0]['s'][i]) , url=ADR[0]['slink'][i] ,  icon_url=ADR[0]['logo'][i])
                     await interaction.response.edit_message(embed=embed)
                 else:
-                    await interaction.response.send_message("Test 1",ephemeral=True)
+                    await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
         if args == 'leave':
             if interaction.guild.voice_client is None:
                 await interaction.response.send_message("Test 1",ephemeral=True)
@@ -53,6 +53,9 @@ class RadioView(discord.ui.View):
                     embed.set_author(name=interaction.message.author.name,  icon_url=interaction.message.author.avatar)
                     await interaction.response.edit_message(embed=embed)   
                     await interaction.guild.voice_client.disconnect(force=True)   
+            else:
+                await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
+                
       
     @discord.ui.button(
         emoji='<:JapanHits:925911131405553717>',
@@ -139,7 +142,7 @@ class RadioView(discord.ui.View):
         emoji='<a:nyanleave:805172204525322250>', 
         style=discord.ButtonStyle.primary , 
         custom_id='leave',
-        row=3
+        row=2
         )
     async def leave_button(self, button, interaction):
         await self.handle_click(button, interaction)
