@@ -20,16 +20,15 @@ class RadioView(discord.ui.View):
         botvc = interaction.message.author.voice
         x = ADR[0]['sub']
         
-        if not uservc:
-            await interaction.response.send_message("Connect to a Voice Channel to start the radio",ephemeral=True)
-        if botvc  is None:
+        if botvc is None and args in x and uservc is not None:
             channel = uservc.channel
             player = await channel.connect()
+            player.stop()
             botvc = interaction.message.author.voice
-        if uservc is not None and botvc.channel is not None:
-            if args in x:            
-                i = x.index(args)
-                if uservc.channel == botvc.channel:
+        if uservc is not None and botvc is not None:
+            if uservc.channel == botvc.channel:
+                if args in x:            
+                    i = x.index(args)
                     if player.is_playing():
                         player.stop()
                     player.play(
@@ -41,21 +40,34 @@ class RadioView(discord.ui.View):
                     embed.set_author(name=str(ADR[0]['s'][i]) , url=ADR[0]['slink'][i] ,  icon_url=ADR[0]['logo'][i])
                     await interaction.response.edit_message(embed=embed)
                 else:
-                    await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
-        if args == 'leave':
-            if interaction.guild.voice_client is None:
-                await interaction.response.send_message("Test 1",ephemeral=True)
-                return
-            if uservc is not None and botvc.channel is not None:
-                if uservc.channel == botvc.channel:
                     player.stop()
                     embed = discord.Embed(title="Radio disconnected", color=0x00ffee)
                     embed.set_author(name=interaction.message.author.name,  icon_url=interaction.message.author.avatar)
                     await interaction.response.edit_message(embed=embed)   
                     await interaction.guild.voice_client.disconnect(force=True)   
             else:
-                await interaction.response.send_message("<:MochaSweat:648458974424858644>",ephemeral=True)
-                
+                if args != "leave":
+                    await interaction.response.send_message(f"<:MochaSweat:648458974424858644> You aren't connected to {botvc.channel} channel",ephemeral=True)
+                else:
+                    await interaction.response.send_message("<a:LunastraNo:852717950535335968>",ephemeral=True)
+                        
+        else:
+            if botvc is None:
+                if args != "leave":
+                    await interaction.response.send_message("Connect to a Voice Channel to start the radio",ephemeral=True)
+                    return
+                else:
+                    await interaction.response.send_message("<:kannawhat:647760815876997120>",ephemeral=True)
+                    return
+            if uservc is None:
+                if botvc is not None:
+                    if args != "leave":
+                        await interaction.response.send_message(f"You aren't connected to {botvc.channel} channel",ephemeral=True)
+                        return
+                    else:
+                        await interaction.response.send_message("<a:LunastraNo:852717950535335968>",ephemeral=True)
+                        return
+            
       
     @discord.ui.button(
         emoji='<:JapanHits:925911131405553717>',
