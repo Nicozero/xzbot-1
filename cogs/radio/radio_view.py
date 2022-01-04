@@ -7,7 +7,7 @@ from discord.ext.commands import Bot
 
 x = open('cogs/radio/radio.json', encoding="utf-8")
 ADR = json.load(x)
-bot = Bot('')
+
 class RadioView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None) 
