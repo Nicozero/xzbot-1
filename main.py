@@ -15,21 +15,21 @@ def main():
     @client.event
     async def on_ready():
         print(f"{client.user.name} has connected to Discord.")
-            # load all cogs
+
+    # load all cogs
     for folder in os.listdir("cogs"):
         if os.path.exists(os.path.join("cogs", folder, "cog.py")):
-            client.load_extension(f"cogs.{folder}.cog")
+            await client.load_extension(f"cogs.{folder}.cog")
             
+    @client.command()
+    async def ping(ctx):
+        await ctx.send(f'Pong! {round (client.latency * 1000)} ms')
+
     @client.event
     async def on_message(message):
         if "https://media.discordapp.net" in message.content :
             x = message.content.replace("https://media.discordapp.net" , "https://cdn.discordapp.com")
             await message.reply(x)
-
-    @client.command()
-    async def ping(ctx):
-        await ctx.send(f'Pong! {round (client.latency * 1000)} ms')
-
 
     # run the bot
     client.run(config.BOT_TOKEN)
