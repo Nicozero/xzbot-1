@@ -4,7 +4,7 @@ from discord.ext import commands
 import config
 
 
-def main():
+async def main():
     # allows privledged intents for monitoring members joining, roles editing, and role assignments
     intents = discord.Intents.default()
     intents.guilds = True
@@ -17,13 +17,17 @@ def main():
         print(f"{client.user.name} has connected to Discord.")
 
     # load all cogs
-    for folder in os.listdir("cogs"):
-        if os.path.exists(os.path.join("cogs", folder, "cog.py")):
-            client.load_extension(f"cogs.{folder}.cog")
+    async def load_extensions():
+        for folder in os.listdir("cogs"):
+            if os.path.exists(os.path.join("cogs", folder, "cog.py")):
+                await client.load_extension(f"cogs.{folder}.cog")
 
     # run the bot
-    client.run(config.BOT_TOKEN)
+    async with client:
+        await load_extensions()
+        await client.start(config.BOT_TOKEN)
 
+asyncio.run(main())
 
 if __name__ == "__main__":
     main()
