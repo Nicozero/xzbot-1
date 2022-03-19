@@ -15,6 +15,15 @@ def main():
     @client.event
     async def on_ready():
         print(f"{client.user.name} has connected to Discord.")
+    @client.command()
+    async def ping(ctx):
+        await ctx.send(f'Pong! {round (client.latency * 1000)} ms')
+
+    @client.event
+    async def on_message(message):
+        if "https://media.discordapp.net" in message.content :
+            x = message.content.replace("https://media.discordapp.net" , "https://cdn.discordapp.com")
+            await message.reply(x)
 
     # load all cogs
     for folder in os.listdir("cogs"):
