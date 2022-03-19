@@ -4,7 +4,7 @@ from discord.ext import commands
 import config
 
 
-async def main():
+def main():
     # allows privledged intents for monitoring members joining, roles editing, and role assignments
     intents = discord.Intents.default()
     intents.guilds = True
@@ -27,16 +27,18 @@ async def main():
         if "https://media.discordapp.net" in message.content :
             x = message.content.replace("https://media.discordapp.net" , "https://cdn.discordapp.com")
         await message.reply(x)
-        
-    async with client:
-        await load_extensions()
-        await client.start(config.BOT_TOKEN)
 
 
     @client.command()
     async def ping(ctx):
         await ctx.send(f'Pong! {round (client.latency * 1000)} ms')
+        
         # run the bot
-asyncio.run(main())
+async def main():
+    async with client:
+        await load_extensions()
+        await client.start(config.BOT_TOKEN)
+        
+asyncio.run(main())  
 if __name__ == "__main__":
     main()
