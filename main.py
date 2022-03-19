@@ -19,7 +19,7 @@ def main():
     # load all cogs
     for folder in os.listdir("cogs"):
         if os.path.exists(os.path.join("cogs", folder, "cog.py")):
-            await client.load_extension(f"cogs.{folder}.cog")
+            client.load_extension(f"cogs.{folder}.cog")
             
     @client.command()
     async def ping(ctx):
