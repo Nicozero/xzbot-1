@@ -34,11 +34,7 @@ def main():
         await ctx.send(f'Pong! {round (client.latency * 1000)} ms')
         
         # run the bot
-async def main():
-    async with client:
-        await load_extensions()
-        await client.start(config.BOT_TOKEN)
-        
-asyncio.run(main())  
+    client.run(config.BOT_TOKEN)
+
 if __name__ == "__main__":
     main()
