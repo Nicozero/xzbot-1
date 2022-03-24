@@ -11,7 +11,7 @@ client = commands.Bot(command_prefix="..")
 @client.event
 async def on_ready():
   print("ready")
-  chnl = client.get_channel(579101262893809684) 
+  chnl = client.get_channel(os.getenv("logChannel")) 
   today = datetime.datetime.now()
   switchTime = today + datetime.timedelta(days=10)
   sleepTime = (switchTime.timestamp() - today.timestamp())
@@ -25,13 +25,16 @@ async def on_ready():
 
 @client.event
 async def on_message_delete(msg):
-  if msg.channel.id == 956636986150617211 :
-    return
   if msg.author.bot: return
   async with aiohttp.ClientSession() as session:
     webhook = Webhook.from_url('https://discord.com/api/webhooks/956638174073983076/u4toNNrti5srgIGKYBdem6ePcuYAilg9aD_1Y2AZcjzBQo0ZqN9apbYwjNcYacUxKkcB', adapter=AsyncWebhookAdapter(session))
     await webhook.send(msg.content, username=msg.author.name,avatar_url=msg.author.avatar_url,files=[await f.to_file() for f in msg.attachments]) 
-    
+
+@client.event
+async def on_message(msg):
+  if "https://media.discordapp.net/" in msg.content:
+    msg.reply(msg.content.replace("https://media.discordapp.net/","https://cdn.discordapp.com/"))
+       
 @client.command()
 async def ping(ctx):
   await ctx.reply(f"Pong! {round(client.latency * 1000)}ms")
