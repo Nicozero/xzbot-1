@@ -16,11 +16,11 @@ async def on_ready():
   switchTime = today + datetime.timedelta(days=10)
   sleepTime = (switchTime.timestamp() - today.timestamp())
   heroku_conn = heroku3.from_key(os.getenv("KEY"))
-  app = heroku_conn.app('xzbot-1')
+  app = heroku_conn.app('xzbot-0')
   app.process_formation()['worker'].scale(0)
-  await chnl.send("xzbot-1 OFF ")
+  await chnl.send("xzbot-0 OFF ")
   await asyncio.sleep(sleepTime)
-  await chnl.send("switch xzbot-0 > xzbot-1")
+  await chnl.send("switch xzbot-1 > xzbot-0")
   app.process_formation()['worker'].scale(1)
 
 @client.event
