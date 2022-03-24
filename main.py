@@ -1,10 +1,11 @@
 import discord
 from discord.ext import commands
 import datetime
-import time
+import asyncio
 import os
 import heroku3
-
+from discord import Webhook, AsyncWebhookAdapter
+import aiohttp
 client = commands.Bot(command_prefix="..")
 
 @client.event
@@ -12,25 +13,28 @@ async def on_ready():
   print("ready")
   chnl = client.get_channel(579101262893809684) 
   today = datetime.datetime.now()
-  switchTime = today + datetime.timedelta(minutes=1)
+  switchTime = today + datetime.timedelta(days=10)
   sleepTime = (switchTime.timestamp() - today.timestamp())
   heroku_conn = heroku3.from_key(os.getenv("KEY"))
-  app = heroku_conn.app('xzbot-0')
+  app = heroku_conn.app('xzbot-1')
   app.process_formation()['worker'].scale(0)
-  await chnl.send("xzbot-0 OFF ")
-  time.sleep(sleepTime)
-  await chnl.send("switch xzbot-1 > xzbot-0")
+  await chnl.send("xzbot-1 OFF ")
+  await asyncio.sleep(sleepTime)
+  await chnl.send("switch xzbot-0 > xzbot-1")
   app.process_formation()['worker'].scale(1)
 
 @client.event
 async def on_message_delete(msg):
-  chnl = client.get_channel(579101262893809684)
-
-  await chnl.send(msg.content,files=[await f.to_file() for f in msg.attachments])
-  
+  if msg.channel.id == 956636986150617211 :
+    return
+  if msg.author.bot: return
+  async with aiohttp.ClientSession() as session:
+    webhook = Webhook.from_url('https://discord.com/api/webhooks/956638174073983076/u4toNNrti5srgIGKYBdem6ePcuYAilg9aD_1Y2AZcjzBQo0ZqN9apbYwjNcYacUxKkcB', adapter=AsyncWebhookAdapter(session))
+    await webhook.send(msg.content, username=msg.author.name,avatar_url=msg.author.avatar_url,files=[await f.to_file() for f in msg.attachments]) 
+    
 @client.command()
 async def ping(ctx):
-  await ctx.reply(f"Pong {client.latecy}")
+  await ctx.reply(f"Pong! {round(client.latency * 1000)}ms")
 
   
 client.run(os.getenv("TOKEN"))
