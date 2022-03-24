@@ -1,5 +1,4 @@
 discord
 heroku3
-os
 datetime
 time
