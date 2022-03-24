@@ -27,7 +27,7 @@ async def on_ready():
 async def on_message_delete(msg):
   if msg.author.bot: return
   async with aiohttp.ClientSession() as session:
-    webhook = Webhook.from_url((os.getenv("Webhook"), adapter=AsyncWebhookAdapter(session))
+    webhook = Webhook.from_url(os.getenv("Webhook"), adapter=AsyncWebhookAdapter(session))
     await webhook.send(msg.content, username=msg.author.name,avatar_url=msg.author.avatar_url,files=[await f.to_file() for f in msg.attachments]) 
 
 @client.event
