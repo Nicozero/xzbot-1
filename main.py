@@ -11,6 +11,9 @@ import signal
 
 client = commands.Bot(command_prefix="..")
 
+def sigterm_h():
+  print("ok")
+
 @client.event
 async def on_ready():
   print("ready")
@@ -25,8 +28,6 @@ async def on_ready():
   await asyncio.sleep(sleepTime)
   await chnl.send("switch xzbot-1 > xzbot-0")
   app.process_formation()['worker'].scale(1)
-  def sigterm_h():
-  print("ok")
   await signal.signal(signal.SIGTERM , sigterm_h)
 
 @client.event
