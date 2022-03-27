@@ -33,7 +33,7 @@ async def on_ready():
 
   loop = asyncio.get_event_loop()
   for signame in ('SIGINT', 'SIGTERM'):
-      client.add_signal_handler(getattr(signal, signame),
+      loop.add_signal_handler(getattr(signal, signame),
                                 lambda: asyncio.create_task(handler()))
 asyncio.get_event_loop().run_forever()
 @client.event
