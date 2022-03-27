@@ -6,14 +6,13 @@ import os
 import heroku3
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
-
 import signal
 
 client = commands.Bot(command_prefix="..")
 
-def handler():
+async def handler():
     print("sleeping a bit...")
-    asyncio.sleep(0.2)
+    await asyncio.sleep(0.2)
     print('exiting')
     asyncio.get_event_loop().stop()
 
@@ -32,10 +31,11 @@ async def on_ready():
   await chnl.send("switch xzbot-1 > xzbot-0")
   app.process_formation()['worker'].scale(1)
 
+  loop = asyncio.get_event_loop()
   for signame in ('SIGINT', 'SIGTERM'):
       client.add_signal_handler(getattr(signal, signame),
                                 lambda: asyncio.create_task(handler()))
-
+asyncio.get_event_loop().run_forever()
 @client.event
 async def on_message_delete(msg):
   if msg.author.bot: return
