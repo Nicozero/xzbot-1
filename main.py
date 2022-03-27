@@ -32,9 +32,8 @@ async def on_ready():
   await chnl.send("switch xzbot-1 > xzbot-0")
   app.process_formation()['worker'].scale(1)
 
-  loop = asyncio.get_event_loop()
   for signame in ('SIGINT', 'SIGTERM'):
-      loop.add_signal_handler(getattr(signal, signame),
+      client.add_signal_handler(getattr(signal, signame),
                                 lambda: asyncio.create_task(handler()))
 
 @client.event
