@@ -11,8 +11,22 @@ import signal
 
 client = commands.Bot(command_prefix="..")
 
-def sigterm_h():
-  print("ok")
+import asyncio, signal
+
+async def handler():
+    print("sleeping a bit...")
+    await asyncio.sleep(0.2)
+    print('exiting')
+    asyncio.get_event_loop().stop()
+
+def setup():
+    loop = asyncio.get_event_loop()
+    for signame in ('SIGINT', 'SIGTERM'):
+        loop.add_signal_handler(getattr(signal, signame),
+                                lambda: asyncio.create_task(handler()))
+
+setup()
+asyncio.get_event_loop().run_forever()
 
 @client.event
 async def on_ready():
@@ -28,7 +42,6 @@ async def on_ready():
   await asyncio.sleep(sleepTime)
   await chnl.send("switch xzbot-1 > xzbot-0")
   app.process_formation()['worker'].scale(1)
-  await signal.signal(signal.SIGTERM , sigterm_h)
 
 @client.event
 async def on_message_delete(msg):
