@@ -6,6 +6,14 @@ import os
 import heroku3
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
+
+import signal
+
+def sigterm_h():
+ print("ok")
+
+signal.signal(signal.SIGTERM , sigterm_h)
+
 client = commands.Bot(command_prefix="..")
 
 @client.event
