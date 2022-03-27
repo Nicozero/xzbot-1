@@ -6,7 +6,7 @@ import os
 import heroku3
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
-import signal
+import signal , functools
 
 client = commands.Bot(command_prefix="..")
 
