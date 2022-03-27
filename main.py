@@ -13,7 +13,7 @@ client = commands.Bot(command_prefix="..")
 
 def handler():
     print("sleeping a bit...")
-    await asyncio.sleep(0.2)
+    asyncio.sleep(0.2)
     print('exiting')
     asyncio.get_event_loop().stop()
 
