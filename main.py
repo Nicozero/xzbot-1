@@ -11,6 +11,12 @@ import signal
 
 client = commands.Bot(command_prefix="..")
 
+def handler():
+    print("sleeping a bit...")
+    await asyncio.sleep(0.2)
+    print('exiting')
+    asyncio.get_event_loop().stop()
+
 @client.event
 async def on_ready():
   print("ready")
@@ -25,6 +31,11 @@ async def on_ready():
   await asyncio.sleep(sleepTime)
   await chnl.send("switch xzbot-1 > xzbot-0")
   app.process_formation()['worker'].scale(1)
+
+  loop = asyncio.get_event_loop()
+  for signame in ('SIGINT', 'SIGTERM'):
+      loop.add_signal_handler(getattr(signal, signame),
+                                lambda: asyncio.create_task(handler()))
 
 @client.event
 async def on_message_delete(msg):
@@ -45,20 +56,4 @@ async def on_message(msg):
 async def ping(ctx):
   await ctx.reply(f"Pong! {round(client.latency * 1000)}ms")
 
-@client.event
-async def handler():
-    print("sleeping a bit...")
-    await asyncio.sleep(0.2)
-    print('exiting')
-    asyncio.get_event_loop().stop()
-
-def setup():
-    loop = asyncio.get_event_loop()
-    for signame in ('SIGINT', 'SIGTERM'):
-        loop.add_signal_handler(getattr(signal, signame),
-                                lambda: asyncio.create_task(handler()))
-
-setup()
-asyncio.get_event_loop().run_forever()
-  
 client.run(os.getenv("TOKEN"))
