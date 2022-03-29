@@ -6,8 +6,6 @@ import os
 import heroku3
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
-import signal , functools
-
 client = commands.Bot(command_prefix="..")
 
 @client.event
@@ -15,7 +13,7 @@ async def on_ready():
   print("ready")
   chnl = client.get_channel(int(os.getenv("logChannel"))) 
   today = datetime.datetime.now()
-  switchTime = today + datetime.timedelta(days=10)
+  switchTime = today + datetime.timedelta(hours=23)
   sleepTime = (switchTime.timestamp() - today.timestamp())
   heroku_conn = heroku3.from_key(os.getenv("KEY"))
   app = heroku_conn.app('xzbot-0')
@@ -42,19 +40,5 @@ async def on_message(msg):
 @client.command()
 async def ping(ctx):
   await ctx.reply(f"Pong! {round(client.latency * 1000)}ms")
-
-@client.event
-async def handler(signame , loop):
-    print("sleeping a bit...")
-    await asyncio.sleep(0.2)
-    print('exiting')
-    loop.stop()
-
-async def s_loop():
-  loop = asyncio.get_running_loop()
-  for signame in ('SIGINT', 'SIGTERM'):
-      loop.add_signal_handler(getattr(signal, signame),
-         functools.partial(handler, signame, loop))
-asyncio.run(s_loop())
 
 client.run(os.getenv("TOKEN"))
