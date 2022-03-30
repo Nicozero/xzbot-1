@@ -37,7 +37,7 @@ async def on_message(msg):
     output = ''
     for txt in re.findall('(https?.*?\.mp4)', msg.content):
       output += str(txt + " \n")
-      x= output.replace("https://media.discordapp.net/","https://cdn.discordapp.com/")
+      x= output
       await msg.reply(x)
       print (x)
       print (txt)
