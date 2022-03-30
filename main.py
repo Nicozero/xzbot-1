@@ -40,6 +40,7 @@ async def on_message(msg):
       x= output.replace("https://media.discordapp.net/","https://cdn.discordapp.com/")
       await msg.reply(x)
       print (x)
+      print (txt)
     return
   await client.process_commands(msg)
        
