@@ -37,8 +37,7 @@ async def on_message(msg):
     output = ''
     for txt in re.findall('(https?.*?\.mp?4$)', msg.content):
       output += str(txt + " \n")
-      x= output
-    await msg.reply(x.replace("https://media.discordapp.net/", "https://cdn.discordapp.com/"))
+    await msg.reply(output.replace("https://media.discordapp.net/", "https://cdn.discordapp.com/"))
     return
   await client.process_commands(msg)
        
