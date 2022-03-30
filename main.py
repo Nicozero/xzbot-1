@@ -2,10 +2,11 @@ import discord
 from discord.ext import commands
 import datetime
 import asyncio
-import os
+import os , re
 import heroku3
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
+
 client = commands.Bot(command_prefix="..")
 
 @client.event
@@ -33,7 +34,8 @@ async def on_message_delete(msg):
 async def on_message(msg):
   if msg.author.bot: return
   if "https://media.discordapp.net/" in msg.content:
-    await msg.reply(msg.content.replace("https://media.discordapp.net/","https://cdn.discordapp.com/"))
+    for txt in re.findall('(https?.*?\.mp4)', msg.content):
+      await msg.reply(txt.replace("https://media.discordapp.net/","https://cdn.discordapp.com/"))
     return
   await client.process_commands(msg)
        
