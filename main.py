@@ -33,11 +33,12 @@ async def on_message_delete(msg):
 @client.event
 async def on_message(msg):
     if msg.author.bot: return
-    if "https://media.discordapp.net/" in msg.content:
+    if "https://media.discordapp.net/" in msg.content and ".mp4":
         newmsg = ""
         x = msg.content.split()
         r = re.compile('https?.*?\.mp?4$')
         output = list(filter(r.match, x))
+    if  output is not None:
         for i in output:
             newmsg += str(i)+ "\n"
         await msg.reply("link fix \n" + newmsg.replace("https://media.discordapp.net/", "https://cdn.discordapp.com/"))
