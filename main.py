@@ -38,11 +38,11 @@ async def on_message(msg):
         x = msg.content.split()
         r = re.compile('https?.*?\.mp?4$')
         output = list(filter(r.match, x))
-    if  output is not None:
-        for i in output:
-            newmsg += str(i)+ "\n"
-        await msg.reply("link fix \n" + newmsg.replace("https://media.discordapp.net/", "https://cdn.discordapp.com/"))
-        return
+        if  output is not None:
+            for i in output:
+                newmsg += str(i)+ "\n"
+            await msg.reply("link fix \n" + newmsg.replace("https://media.discordapp.net/", "https://cdn.discordapp.com/"))
+            return
     await client.process_commands(msg)
        
 @client.command()
