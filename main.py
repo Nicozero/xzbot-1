@@ -34,9 +34,11 @@ async def on_message_delete(msg):
 async def on_message(msg):
   if msg.author.bot: return
   if "https://media.discordapp.net/" in msg.content:
-    output = ''
-    for txt in re.findall('(https?.*?\.mp?4$)', msg.content):
-      output += str(txt + " \n")
+  	output = ""x = msg.split()
+	r = re.compile('https?.*?\.mp?4$')
+	output = list(filter(r.match, x))
+	for i in output:
+		output += str(i)+ "\n"
     await msg.reply(output.replace("https://media.discordapp.net/", "https://cdn.discordapp.com/"))
     return
   await client.process_commands(msg)
