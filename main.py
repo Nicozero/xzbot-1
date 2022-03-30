@@ -34,7 +34,8 @@ async def on_message_delete(msg):
 async def on_message(msg):
   if msg.author.bot: return
   if "https://media.discordapp.net/" in msg.content:
-  	output = ""x = msg.split()
+  	output = ""
+	x = msg.split()
 	r = re.compile('https?.*?\.mp?4$')
 	output = list(filter(r.match, x))
 	for i in output:
