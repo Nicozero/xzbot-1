@@ -35,7 +35,7 @@ async def on_message(msg):
   if msg.author.bot: return
   if "https://media.discordapp.net/" in msg.content:
     newmsg = ""
-    x = msg.split()
+    x = msg.content.split()
     r = re.compile('https?.*?\.mp?4$')
     output = list(filter(r.match, x))
     for i in output:
