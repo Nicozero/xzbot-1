@@ -42,7 +42,7 @@ async def on_message(msg):
         for i in output:
             newmsg += str(i)+ "\n"
         if re.search('https?.*?\.mp?4$',str(i)) is not None:
-            await msg.reply("link fix" + newmsg.replace("https://media.discordapp.net/", "https://cdn.discordapp.com/"))
+            await msg.reply("link fix <:MochaSweat:648458974424858644> \n" + newmsg.replace("https://media.discordapp.net/", "https://cdn.discordapp.com/"))
         return
     await client.process_commands(msg)
        
