@@ -41,7 +41,7 @@ async def on_message(msg):
     for i in output:
       newmsg += str(i)+ "\n"
       await msg.reply("link fix \n" + newmsg.replace("https://media.discordapp.net/", "https://cdn.discordapp.com/"))
-    		return
+    return
   await client.process_commands(msg)
        
 @client.command()
