@@ -36,10 +36,9 @@ async def on_message(msg):
   if "https://media.discordapp.net/" in msg.content:
     output = ''
     for txt in re.findall('(https?.*?\.mp4)', msg.content):
-      output += str(txt.replace("https://media.discordapp.net/","https://cdn.discordapp.com/") + " \n")
-      
-      await msg.reply(output)
-   return
+      output += str(txt + " \n")
+      await msg.reply(output.replace("https://media.discordapp.net/","https://cdn.discordapp.com/"))
+    return
   await client.process_commands(msg)
        
 @client.command()
