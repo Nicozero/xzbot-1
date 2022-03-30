@@ -38,9 +38,7 @@ async def on_message(msg):
     for txt in re.findall('(https?.*?\.mp4)', msg.content):
       output += str(txt + " \n")
       x= output
-      await msg.reply(x)
-      print (x)
-      print (txt)
+    await msg.reply(x)
     return
   await client.process_commands(msg)
        
