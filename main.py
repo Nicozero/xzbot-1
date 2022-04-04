@@ -43,7 +43,7 @@ async def on_message(msg):
         r = re.compile('https?.*?\.mp?4$')
         output = list(filter(r.match, x))
         if len(output) != 0:
-            await webhook.send(msg.content.replace("https://media.discordapp.net/","https://cdn.discordapp.com/"),username=msg.author.name,avatar_url=msg.author.avatar.url)
+            await webhook.send(msg.content.replace("https://media.discordapp.net/","https://cdn.discordapp.com/"),username=msg.author.name,avatar_url=msg.author.avatar_url)
             await msg.delete()
         return
     await client.process_commands(msg)
