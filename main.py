@@ -34,18 +34,20 @@ async def on_message_delete(msg):
 async def on_message(msg):
     if msg.author.bot: return
     if "https://media.discordapp.net/" in msg.content:
-        newmsg = ""
+    #Checking if a webhook exists
+        webhook = discord.utils.get(await msg.channel.webhooks(), name=client.user.name)
+        if webhook is None:
+        # If the webhook didn't exist, we create one
+            webhook = await msg.channel.create_webhook(name=client.user.name) 
         x = msg.content.split()
         r = re.compile('https?.*?\.mp?4$')
         output = list(filter(r.match, x))
-        i = None
-        for i in output:
-            newmsg += str(i)+ "\n"
-        if re.search('https?.*?\.mp?4$',str(i)) is not None:
-            await msg.reply("link fix <:MochaSweat:648458974424858644> \n" + newmsg.replace("https://media.discordapp.net/", "https://cdn.discordapp.com/"))
+        if len(output) != 0:
+            await webhook.send(msg.content.replace("https://media.discordapp.net/","https://cdn.discordapp.com/"),username=msg.author.name,avatar_url=msg.author.avatar.url)
+            await msg.delete()
         return
     await client.process_commands(msg)
-       
+
 @client.command()
 async def ping(ctx):
     await ctx.reply(f"Pong! {round(client.latency * 1000)}ms")
