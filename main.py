@@ -28,7 +28,7 @@ async def on_message_delete(msg):
     if msg.author.bot: return
     async with aiohttp.ClientSession() as session:
         webhook = Webhook.from_url(os.getenv("Webhook"), adapter=AsyncWebhookAdapter(session))
-        await webhook.send(msg.content, username=msg.author.name,avatar_url=msg.author.avatar_url,files=[await f.to_file() for f in msg.attachments]) 
+        await webhook.send(f'> from {msg.channel.name} \n {msg.content}', username=msg.author.name,avatar_url=msg.author.avatar_url,files=[await f.to_file() for f in msg.attachments]) 
 
 @client.event
 async def on_message(msg):
@@ -40,7 +40,7 @@ async def on_message(msg):
         # If the webhook didn't exist, we create one
             webhook = await msg.channel.create_webhook(name=client.user.name) 
         x = msg.content.split()
-        r = re.compile('https?.*?\.mp?4$')
+        r = re.compile('https?.*?\.mp?4$|https?.*?\.mo?v$|https?.*?\.web?m$')
         output = list(filter(r.match, x))
         if len(output) != 0:
             await webhook.send(msg.content.replace("https://media.discordapp.net/","https://cdn.discordapp.com/"),username=msg.author.name,avatar_url=msg.author.avatar_url)
